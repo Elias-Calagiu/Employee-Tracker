@@ -67,4 +67,7 @@ connection.connect(function(err) {
         }
       });
   }
-  
+//   init();
+  function allEmployees(){
+    
+  }

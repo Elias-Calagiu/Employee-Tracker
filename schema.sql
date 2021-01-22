@@ -25,3 +25,5 @@ CREATE TABLE employee (
     role_id INT NOT NULL,
     manager_id INT NOT NULL
 );
+
+SELECT * FROM employee JOIN role ON employee.role_id = role.id JOIN departments ON role.departments_id = departments_id;
