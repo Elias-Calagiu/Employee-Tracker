@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS employee_tracker_db;
 
 Create DATABASE employee_tracker_db;
 
-USE DATABASE employee_tracker_db;
+USE employee_tracker_db;
 
 CREATE TABLE departments (
     id INT AUTO_INCREMENT NOT NULL,
@@ -23,5 +23,5 @@ CREATE TABLE employee (
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
     role_id INT NOT NULL,
-    manager_id INT NOT NULL,
+    manager_id INT NOT NULL
 );
