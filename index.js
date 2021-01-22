@@ -11,14 +11,11 @@ const connection = mysql.createConnection({
     database: "employee_tracker_db"
 });
 
-connection.connect(function(err) {
-    if (err) {
-      console.error("error connecting: " + err.stack);
-      return;
-    }
-  
-    console.log("connected as id " + connection.threadId);
-  });
+connection.connect(function (err) {
+    if (err) throw err;
+    console.log("connected as id " + connection.threadId + "\n");
+    init();
+});
   
 
   function init() {
@@ -66,8 +63,15 @@ connection.connect(function(err) {
           break;
         }
       });
-  }
-//   init();
+  };
+
   function allEmployees(){
-    
-  }
+    connection.query("SELECT * FROM employee JOIN roles ON employee.roles_id = roles_id JOIN departments ON roles.department_id = departments.id",
+    function(err, res){
+        if (err){
+            throw err
+        } else {
+            console.table(res)
+        }
+    })
+  };
