@@ -37,4 +37,34 @@ connection.connect(function(err) {
           "Exit"
         ]
       })
-      
+      .then(function(answer) {
+        switch (answer.action) {
+        case "View all employees":
+          allEmployees();
+          break;
+  
+        case "View all employees by department":
+          byDepartment();
+          break;
+  
+        case "View all employees by manager":
+          byManager();
+          break;
+  
+        case "Add employee":
+          addEmployee();
+          break;
+        case "Remove employee":
+          removeEmployee();
+          break;
+        case "Update employee":
+          updateEmployee();
+          break;
+  
+        case "Exit":
+          connection.end();
+          break;
+        }
+      });
+  }
+  
