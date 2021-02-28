@@ -27,7 +27,7 @@ connection.connect(function (err) {
         choices: [
           "View all employees",
           "View all departments",
-          "View all employees by manager",
+          "View all roles",
           "Add employee",
           "Remove employee",
           "Update employee",
@@ -44,8 +44,8 @@ connection.connect(function (err) {
           allDepartments();
           break;
   
-        case "View all employees by manager":
-          byManager();
+        case "View all roles":
+          allRoles();
           break;
   
         case "Add employee":
@@ -76,8 +76,19 @@ connection.connect(function (err) {
         }
     })
   };
+
   function allDepartments(){
     connection.query("SELECT * FROM departments",
+    function(err, res){
+        if (err){
+            throw err
+        } else {
+            console.table(res)
+        }
+    })
+  };
+  function allRoles(){
+    connection.query("SELECT * FROM roles",
     function(err, res){
         if (err){
             throw err
