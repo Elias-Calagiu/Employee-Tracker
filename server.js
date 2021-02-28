@@ -26,7 +26,7 @@ connection.connect(function (err) {
         message: "What would you like to do?",
         choices: [
           "View all employees",
-          "View all employees by department",
+          "View all departments",
           "View all employees by manager",
           "Add employee",
           "Remove employee",
@@ -40,8 +40,8 @@ connection.connect(function (err) {
           allEmployees();
           break;
   
-        case "View all employees by department":
-          byDepartment();
+        case "View all departments":
+          allDepartments();
           break;
   
         case "View all employees by manager":
@@ -76,8 +76,8 @@ connection.connect(function (err) {
         }
     })
   };
-  function byDepartment(){
-    connection.query("SELECT * FROM employee JOIN roles ON employee.roles_id = roles_id JOIN departments ON roles.departments_id = departments.id",
+  function allDepartments(){
+    connection.query("SELECT * FROM departments",
     function(err, res){
         if (err){
             throw err
