@@ -66,17 +66,18 @@ connection.connect(function (err) {
   };
 
   function allEmployees(){
-    connection.query("SELECT * FROM employee JOIN roles ON employee.roles_id = roles_id JOIN departments ON roles.department_id = departments.id",
+    connection.query("SELECT * FROM employee JOIN roles ON employee.roles_id = roles_id JOIN departments ON roles.departments_id = departments.id",
     function(err, res){
         if (err){
             throw err
         } else {
             console.table(res)
+            init();
         }
     })
   };
   function byDepartment(){
-    connection.query("SELECT * FROM employee JOIN roles ON employee.roles_id = roles_id JOIN departments ON roles.department_id = departments.id",
+    connection.query("SELECT * FROM employee JOIN roles ON employee.roles_id = roles_id JOIN departments ON roles.departments_id = departments.id",
     function(err, res){
         if (err){
             throw err
@@ -85,3 +86,39 @@ connection.connect(function (err) {
         }
     })
   };
+
+  async function addEmployee(){
+    // connection.query("SELECT * FROM employee")
+    // var allEmployees = await connection.queryPromise("SELECT * FROM employees")
+    connection.query("SELECT * FROM roles", function(err, res){
+      if (err){
+        throw err
+      }
+      inquirer
+      .prompt([
+        {
+        name: "first_name",
+        type: "input",
+        message: "What's the employee's first name?"
+      },
+        {
+        name: "last_name",
+        type: "input",
+        message: "What's the employee's last name?"
+      },
+        {
+        name: "roles",
+        type: "input",
+        message: "What's the employee's role?"
+      },
+    ]).then(function(input){
+      const query = connection.query("INSERT INTO * employee SET ?",{
+        first_name: input.first_name,
+        last_name: input.last_name,
+        role: input.roles
+      })
+      init();
+    })
+    })
+
+  }
