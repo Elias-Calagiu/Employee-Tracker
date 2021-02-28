@@ -87,9 +87,7 @@ connection.connect(function (err) {
     })
   };
 
-  async function addEmployee(){
-    // connection.query("SELECT * FROM employee")
-    // var allEmployees = await connection.queryPromise("SELECT * FROM employees")
+  function addEmployee(){
     connection.query("SELECT * FROM roles", function(err, res){
       if (err){
         throw err
@@ -108,17 +106,29 @@ connection.connect(function (err) {
       },
         {
         name: "roles",
-        type: "input",
-        message: "What's the employee's role?"
+        type: "list",
+        message: "What's the employee's role?",
+        choices: res.map((roles) => ({
+          name: roles.title,
+          value: roles.id
+      }))
+      },
+        {
+        name: "manager",
+        type: "number",
+        message: "Who is this employee's manager?",
       },
     ]).then(function(input){
-      const query = connection.query("INSERT INTO * employee SET ?",{
+      connection.query("INSERT INTO employee SET ?",{
         first_name: input.first_name,
         last_name: input.last_name,
-        role: input.roles
+        roles_id: input.roles,
+        manager_id: input.manager
       })
       init();
+
     })
+
     })
 
   }
